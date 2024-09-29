@@ -14,13 +14,6 @@ load_dotenv()
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# def get_pdf(docs):
-#     text=""
-#     for pdf in docs:
-#         pdfread = PdfReader(pdf)
-#         for page in pdfread.pages:
-#             text+=page.extract_text()
-#     return text
 def get_pdf(pdf_docs):
     text = ""
     for pdf in pdf_docs:
@@ -77,59 +70,6 @@ def clear_chat_history():
     st.session_state.messages = [
         {"role": "assistant", "content": "upload some pdfs and ask me a question"}]
 
-
-# def main():
-#     st.set_page_config("Chat PDF")
-#     # st.header('Chat with PDF using Gemini')
-
-#     # user_question = st.text_input("Ask a Question from PDF Files")
-
-#     # if user_question:
-#     #     user_input(user_question)
-
-#     with st.sidebar:
-#         st.title("Menu:") 
-#         pdf_docs = st.file_uploader("Upload Files",accept_multiple_files=True)
-#         if st.button("Submit & Process"):
-#             with st.spinner("Preprocessing..."):
-#                 raw_text = get_pdf(pdf_docs)
-#                 chunks = get_text_chunks(raw_text)
-#                 get_vector_store(chunks)
-#                 st.success("Done")
-
-#     # st.title("Chat with PDF files using Gemini🤖")
-#     # st.write("Welcome to the chat!")
-#     st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
-
-#     if "messages" not in st.session_state.keys():
-#         st.session_state.messages = [
-#             {"role": "assistant", "content": "upload some pdfs and ask me a question"}]
-
-#     for message in st.session_state.messages:
-#         with st.chat_message(message["role"]):
-#             st.write(message["content"])
-
-#     if prompt := st.chat_input():
-#         st.session_state.messages.append({"role": "user", "content": prompt})
-#         with st.chat_message("user"):
-#             st.write(prompt)
-
-#     # Display chat messages and bot response
-#     if st.session_state.messages[-1]["role"] != "assistant":
-#         with st.chat_message("assistant"):
-#             with st.spinner("Thinking..."):
-#                 response = user_input(prompt)
-#                 placeholder = st.empty()
-#                 full_response = ''
-#                 for item in response['output_text']:
-#                     full_response += item
-#                     placeholder.markdown(full_response)
-#                 placeholder.markdown(full_response)
-#         if response is not None:
-#             message = {"role": "assistant", "content": full_response}
-#             st.session_state.messages.append(message)
-
-
 def main():
     st.set_page_config(page_title="Chat PDF", layout="wide")
 
@@ -172,11 +112,5 @@ def main():
 
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-        
-
 if __name__ == "__main__":
     main()
-
-
-
-
